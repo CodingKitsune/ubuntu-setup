@@ -158,6 +158,7 @@ apt install papirus-folders -y;
 apt install gnome-shell-extensions -y;
 apt install chrome-gnome-shell -y;
 apt install synapse -y;
+apt install diodon -y;
 
 echo 'Installing apps from snaps...';
 
