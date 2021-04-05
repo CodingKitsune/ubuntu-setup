@@ -40,7 +40,8 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 echo "What is your default username?";
-read DEFAULTUSER
+read DEFAULTUSER_INPUT
+export DEFAULTUSER=$DEFAULTUSER_INPUT
 
 echo 'Updating your system...';
 
@@ -255,7 +256,7 @@ install_gnome_extension "https://extensions.gnome.org/extension-data/cpufreq%40n
 
 chmod +x ./set_preferences.sh;
 sudo ./set_preferences.sh;
-sudo -H -u $DEFAULTUSER bash -c './set_preferences.sh';
+sudo -H -u $DEFAULTUSER bash -c "DEFAULTUSER=${DEFAULTUSER} ./set_preferences.sh";
 
 mkdir -p /etc/chromium/policies/managed;
 cp "./policies/chrome_extensions.json" "/etc/chromium/policies/managed/chrome_extensions.json";
