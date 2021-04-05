@@ -237,7 +237,7 @@ echo 'Applying custom settings...';
 echo "vm.swappiness=10" >> /etc/sysctl.conf;
 echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf;
 
-tar xvf ./Sweet.tar.xz -C /user/share/themes;
+tar xvf ./Sweet.tar.xz -C /usr/share/themes;
 
 mkdir -p "/home/${DEFAULTUSER}/Pictures/Wallpapers";
 mkdir -p "/home/${DEFAULTUSER}/Pictures/Profile Pictures";
