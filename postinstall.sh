@@ -146,7 +146,7 @@ apt install geary -y;
 apt install inkscape -y;
 apt install imagemagick imagemagick-doc -y;
 apt install gufw -y;
-apt install guvc -y;
+apt install guvcview -y;
 apt install transmission -y;
 apt install net-tools -y;
 apt install zsh -y;
@@ -189,7 +189,7 @@ echo 'Installing apps from scripts...';
 
 sudo -H -u $DEFAULTUSER bash -c 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended';
 sudo -H -u $DEFAULTUSER bash -c 'chsh -s $(which zsh)';
-sudo -H -u $DEFAULTUSER bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash';
+sudo -H -u $DEFAULTUSER bash -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash'; #TO CHECK: asking for password
 
 sudo -H -u $DEFAULTUSER bash -c 'nvm install node';
 sudo -H -u $DEFAULTUSER bash -c 'npm install -g yarn';
@@ -235,7 +235,6 @@ echo 'Applying custom settings...';
 echo "vm.swappiness=10" >> /etc/sysctl.conf;
 echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf;
 
-wget -O Sweet.tar.xz "https://dllb2.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE2MTQ0NTg5NTUiLCJ1IjpudWxsLCJsdCI6ImRvd25sb2FkIiwicyI6IjlkNTRlZGRhYzM2NWJjNmY4NmU5YjhhOTU1MGI5YTUwMWViYzUzMjQ0ZWZmMzZmOTNlYzdkNDM1OWMzNzdhMGY2NzUwYWE1OTViZGNkYjljZmU1MDEyZWRiODJmNTFmNjVkNzEwMDQzYTU4Yzg4MTJjNjRjYzc5MWYzZTNiMzU3IiwidCI6MTYxNzU4ODIzNiwic3RmcCI6bnVsbCwic3RpcCI6bnVsbH0.TbC01aAf1OcusjxdUVGgSXQY3ovORukra_RNBDl1U_4/Sweet.tar.xz";
 tar xvf ./Sweet.tar.xz -C /user/share/themes;
 
 mkdir -p "/home/${DEFAULTUSER}/Pictures/Wallpapers";
@@ -245,51 +244,24 @@ cp "./pictures/profile.jpg" "/home/${DEFAULTUSER}/Pictures/Profile Pictures/prof
 cp "./pictures/wallpaper.jpg" "/home/${DEFAULTUSER}/Pictures/Wallpapers/wallpaper.jpg";
 cp "/home/${DEFAULTUSER}/Pictures/Profile Pictures/profile.jpg" "/home/${DEFAULTUSER}/.face";
 
-gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize';
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-position 'BOTTOM';
-gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 20;
-gsettings set org.gnome.nautilus.preferences show-create-link true;
-gsettings set org.gnome.nautilus.preferences show-delete-permanently true;
-gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view';
-gsettings set org.gnome.nautilus.preferences default-sort-order 'mtime';
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing';
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 3600;
-gsettings set org.gnome.desktop.session idle-delay 0;
-gsettings set org.gnome.desktop.media-handling autorun-never true;
-gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark';
-gsettings set org.gnome.desktop.interface gtk-theme 'Sweet';
-gsettings set org.gnome.desktop.interface clock-show-weekday true;
-gsettings set org.gnome.desktop.calendar show-weekdate true;
-gsettings set org.gnome.mutter dynamic-workspaces false;
-gsettings set org.gnome.mutter workspaces-only-on-primary false;
-gsettings set org.gnome.system.location enabled false;
-gsettings set org.gnome.desktop.privacy report-technical-problems false;
-gsettings set org.gnome.desktop.interface enable-hot-corners true;
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'code.desktop', 'chromium_chromium.desktop']";
-gsettings set org.gnome.desktop.background picture-uri "file:////usr/${DEFAULTUSER}/Pictures/Wallpapers/wallpaper.jpg";
-gsettings set org.gnome.desktop.screensaver picture-uri "file:////usr/${DEFAULTUSER}/Pictures/Wallpapers/wallpaper.jpg";
-gsettings set org.gnome.desktop.interface text-scaling-factor 0.90000000000000002;
-
-gsettings set org.gnome.desktop.interface monospace-font-name 'Space Mono 13';
-gsettings set org.gnome.desktop.interface font-name 'Lexend Deca 11';
-gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Lexend Deca Bold 11';
+chown -R $DEFAULTUSER:$DEFAULTUSER "/home/${DEFAULTUSER}/Pictures/Wallpapers";
+chown -R $DEFAULTUSER:$DEFAULTUSER "/home/${DEFAULTUSER}/Pictures/Profile Pictures";
+chown $DEFAULTUSER:$DEFAULTUSER "/home/${DEFAULTUSER}/.face";
 
 install_gnome_extension "https://extensions.gnome.org/extension-data/temperature%40xtranophilist.v21.shell-extension.zip";
 install_gnome_extension "https://extensions.gnome.org/extension-data/AdvancedVolumeMixer%40harry.karvonen.gmail.com.v2.shell-extension.zip";
 install_gnome_extension "https://extensions.gnome.org/extension-data/cpufreq%40nodefourtytwo.net.v6.shell-extension.zip";
 
-gsettings set org.gnome.shell enabled-extensions "['ubuntu-appindicators@ubuntu.com', 'TaskBar@c0ldplasma', 'gsconnect@andyholmes.github.io', 'volume-mixer@evermiss.net', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com']";
+chmod +x ./set_preferences.sh;
+sudo ./set_preferences.sh;
+sudo -H -u $DEFAULTUSER bash -c './set_preferences.sh';
 
-papirus-folders -C teal --theme Papirus-Dark;
-
-update-alternatives --set x-www-browser /usr/bin/chromium-browser;
 mkdir -p /etc/chromium/policies/managed;
 cp "./policies/chrome_extensions.json" "/etc/chromium/policies/managed/chrome_extensions.json";
 
-yes | cp ./profile/.zshrc ~/.zshrc;
+sudo -H -u $DEFAULTUSER bash -c "yes | cp ./profile/.zshrc ~/.zshrc";
 
 echo 'Removing some useless stuff...';
-apt purge ubuntu-web-launchers -y;
 apt-get autoclean -y;
 apt-get autoremove -y;
 
