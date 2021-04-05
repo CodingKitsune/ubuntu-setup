@@ -218,9 +218,13 @@ gsettings set org.gnome.mutter workspaces-only-on-primary false;
 
 papirus-folders -C teal --theme Papirus-Dark;
 
-wget -O /home/${DEFAULTUSER}/Pictures/Wallpapers
-gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/ubuntu-default-greyscale-wallpaper.png
+mkdir -p "/home/${DEFAULTUSER}/Pictures/Wallpapers";
+mkdir -p "/home/${DEFAULTUSER}/Pictures/Profile Pictures";
 
+cp "./pictures/profile.jpg" "/home/${DEFAULTUSER}/Pictures/Profile Pictures/profile.jpg";
+cp "./pictures/wallpaper.jpg" "/home/${DEFAULTUSER}/Pictures/Wallpapers/wallpaper.jpg";
+
+gsettings set org.gnome.desktop.background picture-uri "file:////usr/${DEFAULTUSER}/Pictures/Wallpapers/wallpaper.jpg"
 cp "/home/${DEFAULTUSER}/Pictures/Profile Pictures/profile.jpg" "/home/${DEFAULTUSER}/.face";
 
 echo 'Removing some useless stuff...';
