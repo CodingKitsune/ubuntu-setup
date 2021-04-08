@@ -62,7 +62,7 @@ apt install apt-transport-https -y;
 apt install ca-certificates -y;
 apt install gnupg -y;
 apt install lsb-release -y;
-apt install build-essentials -y;
+apt install build-essential -y;
 apt install git -y;
 apt install dkms -y;
 apt install wget -y;
@@ -160,6 +160,8 @@ apt install gnome-shell-extensions -y;
 apt install chrome-gnome-shell -y;
 apt install synapse -y;
 apt install diodon -y;
+apt install fonts-powerline -y;
+apt install ssh -y;
 
 echo 'Installing apps from snaps...';
 
